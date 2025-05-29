@@ -1,0 +1,866 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mi Portafolio de Evidencias - Naturaleza</title>
+  <style>
+    :root {
+      --primary-color: #e84393;
+      /* Rosa principal */
+      --secondary-color: #6c5ce7;
+      /* Color complementario */
+      --accent-color: #00b894;
+      /* Verde natural */
+      --light-bg: #fff0f5;
+      /* Fondo rosa claro */
+      --dark-bg: #6c2639;
+      /* Rosa oscuro */
+      --text-color: #2d3436;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body {
+      background-image: url("https://cdnjs.cloudflare.com/ajax/libs/simple-icons/3.0.1/simple-icons.svg"),
+        url("/api/placeholder/1920/1080");
+      background-size: cover;
+      background-attachment: fixed;
+      background-position: center;
+      color: var(--text-color);
+      line-height: 1.5;
+      position: relative;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(255, 240, 245, 0.85);
+      z-index: -1;
+    }
+
+    header {
+      background-color: rgba(232, 67, 147, 0.9);
+      color: white;
+      padding: 30px 0;
+      text-align: center;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+      position: relative;
+      overflow: hidden;
+    }
+
+    header::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      background-image: url("/api/placeholder/400/100");
+      background-size: cover;
+      background-position: center;
+      opacity: 0.2;
+      z-index: -1;
+    }
+
+    header h1 {
+      position: relative;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+      font-size: 2.5rem;
+    }
+
+    nav {
+      background-color: rgba(108, 38, 57, 0.9);
+      padding: 12px 0;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .nav-container {
+      display: flex;
+      justify-content: center;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .tab {
+      color: white;
+      background: none;
+      border: none;
+      padding: 12px 25px;
+      margin: 0 8px;
+      cursor: pointer;
+      font-size: 16px;
+      border-radius: 30px;
+      transition: all 0.3s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .tab::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(45deg,
+          var(--primary-color),
+          var(--secondary-color));
+      opacity: 0;
+      transition: opacity 0.3s;
+      z-index: -1;
+      border-radius: 30px;
+    }
+
+    .tab:hover::before {
+      opacity: 1;
+    }
+
+    .tab.active {
+      background-color: var(--primary-color);
+      box-shadow: 0 4px 10px rgba(232, 67, 147, 0.3);
+    }
+
+    main {
+      max-width: 1200px;
+      margin: 30px auto;
+      padding: 20px;
+    }
+
+    .unit-content {
+      display: none;
+      background-color: rgba(255, 255, 255, 0.9);
+      padding: 25px;
+      border-radius: 15px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    }
+
+    .unit-content.active {
+      display: block;
+      animation: fadeIn 0.7s ease;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    h2 {
+      color: var(--primary-color);
+      margin-bottom: 25px;
+      padding-bottom: 10px;
+      font-size: 1.8rem;
+    }
+
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 25px;
+      margin-bottom: 40px;
+    }
+
+    .evidence-item {
+      background-color: white;
+      border-radius: 15px;
+      overflow: hidden;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+      transition: transform 0.4s, box-shadow 0.4s;
+      cursor: pointer;
+      position: relative;
+      border: 1px solid rgba(232, 67, 147, 0.2);
+    }
+
+    .evidence-item:hover {
+      transform: translateY(-10px) scale(1.02);
+      box-shadow: 0 15px 30px rgba(232, 67, 147, 0.2);
+    }
+
+    .evidence-item img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      transition: filter 0.3s;
+    }
+
+    .evidence-item:hover img {
+      filter: brightness(1.1);
+    }
+
+    .evidence-item .icon {
+      width: 100%;
+      height: 200px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 60px;
+      background: linear-gradient(45deg, #fff0f5, #ffeef9);
+      transition: transform 0.3s;
+    }
+
+    .evidence-item:hover .icon {
+      transform: scale(1.1);
+    }
+
+    .evidence-title {
+      padding: 10px 15px;
+      font-weight: bold;
+      text-align: center;
+      color: var(--dark-bg);
+    }
+
+    /* Modal styles */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 1000;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.85);
+      justify-content: center;
+      align-items: center;
+      backdrop-filter: blur(5px);
+    }
+
+    .modal.show {
+      display: flex;
+      animation: modalFadeIn 0.4s;
+    }
+
+    @keyframes modalFadeIn {
+      from {
+        opacity: 0;
+      }
+
+      to {
+        opacity: 1;
+      }
+    }
+
+    .modal-content {
+      position: relative;
+      max-width: 90%;
+      max-height: 90%;
+      margin: auto;
+      padding: 25px;
+      background-color: white;
+      border-radius: 20px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+      border: 3px solid var(--primary-color);
+    }
+
+    .close {
+      position: absolute;
+      top: 15px;
+      right: 20px;
+      color: var(--dark-bg);
+      font-size: 32px;
+      font-weight: bold;
+      cursor: pointer;
+      z-index: 1010;
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      background-color: rgba(255, 255, 255, 0.9);
+      transition: all 0.3s;
+    }
+
+    .close:hover {
+      color: white;
+      background-color: var(--primary-color);
+      transform: rotate(90deg);
+    }
+
+    .modal-image {
+      max-width: 100%;
+      max-height: 80vh;
+      border-radius: 10px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    .modal-pdf {
+      width: 100%;
+      height: 80vh;
+      border-radius: 10px;
+    }
+
+    .modal-video {
+      max-width: 100%;
+      max-height: 80vh;
+      border-radius: 10px;
+    }
+
+    .placeholder-image {
+      width: 100%;
+      height: 200px;
+      background-color: #f8e1eb;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--primary-color);
+      font-size: 14px;
+      border-radius: 10px 10px 0 0;
+    }
+
+    .empty-gallery {
+      text-align: center;
+      padding: 30px;
+      color: #999;
+      font-style: italic;
+    }
+
+    /* Nature decorative elements */
+    .leaf {
+      position: absolute;
+      width: 30px;
+      height: 30px;
+      background-color: var(--accent-color);
+      opacity: 0.1;
+      border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+      z-index: -1;
+    }
+
+    @media (max-width: 768px) {
+      .gallery {
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      }
+
+      .nav-container {
+        flex-wrap: wrap;
+      }
+
+      .tab {
+        margin-bottom: 8px;
+        font-size: 14px;
+        padding: 10px 15px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Decorative elements -->
+  <div class="leaf" style="top: 20%; left: 5%"></div>
+  <div class="leaf" style="top: 50%; right: 10%"></div>
+  <div class="leaf" style="bottom: 30%; left: 15%"></div>
+  <div class="leaf" style="bottom: 10%; right: 20%"></div>
+
+  <header>
+    <h1>Mi Portafolio de Evidencias</h1>
+    <p>Elizabeth Morelos Rodriguez 41T</p>
+    <p>Desarrollo Sustentable</p>
+  </header>
+
+  <nav>
+    <div class="nav-container">
+      <button class="tab active" onclick="changeUnit('unit1')">
+        Unidad 1
+      </button>
+      <button class="tab" onclick="changeUnit('unit2')">Unidad 2</button>
+      <button class="tab" onclick="changeUnit('unit3')">Unidad 3</button>
+      <button class="tab" onclick="changeUnit('unit4')">Unidad 4</button>
+      <button class="tab" onclick="changeUnit('unit5')">Unidad 5</button>
+    </div>
+  </nav>
+
+  <main>
+    <!-- Unit 1 Content -->
+    <section id="unit1" class="unit-content active">
+      <h2>Unidad 1: Evidencias</h2>
+      <div class="gallery" id="gallery-unit1">
+        <div class="empty-gallery" id="empty-unit1">
+          No hay evidencias para mostrar en esta unidad.
+        </div>
+      </div>
+    </section>
+
+    <!-- Unit 2 Content -->
+    <section id="unit2" class="unit-content">
+      <h2>Unidad 2: Evidencias</h2>
+      <div class="gallery" id="gallery-unit2">
+        <div class="empty-gallery" id="empty-unit2">
+          No hay evidencias para mostrar en esta unidad.
+        </div>
+      </div>
+    </section>
+
+    <!-- Unit 3 Content -->
+    <section id="unit3" class="unit-content">
+      <h2>Unidad 3: Evidencias</h2>
+      <div class="gallery" id="gallery-unit3">
+        <div class="empty-gallery" id="empty-unit3">
+          No hay evidencias para mostrar en esta unidad.
+        </div>
+      </div>
+    </section>
+
+    <!-- Unit 4 Content -->
+    <section id="unit4" class="unit-content">
+      <h2>Unidad 4: Evidencias</h2>
+      <div class="gallery" id="gallery-unit4">
+        <div class="empty-gallery" id="empty-unit4">
+          No hay evidencias para mostrar en esta unidad.
+        </div>
+      </div>
+    </section>
+
+    <!-- Unit 5 Content -->
+    <section id="unit5" class="unit-content">
+      <h2>Unidad 5: Evidencias</h2>
+      <div class="gallery" id="gallery-unit5">
+        <div class="empty-gallery" id="empty-unit5">
+          No hay evidencias para mostrar en esta unidad.
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Modal for displaying content -->
+  <div id="evidenceModal" class="modal">
+    <span class="close">&times;</span>
+    <div class="modal-content" id="modalContent">
+      <!-- Content will be inserted here dynamically -->
+    </div>
+  </div>
+
+  <script>
+    // Global object to store all portfolio data
+    let portfolio = {
+      unit1: [],
+      unit2: [],
+      unit3: [],
+      unit4: [],
+      unit5: [],
+    };
+
+    // Define the base directory for our files
+    const baseDir = "trabajos/";
+
+    // File type utilities
+    const fileUtils = {
+      getFileType: function (fileName) {
+        const extension = fileName.split(".").pop().toLowerCase();
+        if (
+          ["jpg", "jpeg", "png", "gif", "bmp", "webp", "svg"].includes(
+            extension
+          )
+        ) {
+          return "image";
+        } else if (extension === "pdf") {
+          return "pdf";
+        } else if (["mp4", "webm", "ogg", "mov", "avi"].includes(extension)) {
+          return "video";
+        } else {
+          return "unknown";
+        }
+      },
+
+      getFileTitle: function (fileName) {
+        // Remove file extension and replace hyphens/underscores with spaces
+        return fileName.split(".")[0].replace(/[-_]/g, " ");
+      },
+    };
+
+    // Function to load files from local directory
+    async function loadFilesFromDirectory() {
+      try {
+        // For each unit directory
+        for (let i = 1; i <= 5; i++) {
+          const unitName = `unit${i}`;
+          const unitPath = `${baseDir}U${i}/`;
+
+          try {
+            // Simulate getting files from directory
+            // In a real implementation, this would use the FileSystem API or other methods
+            // For this demo, we'll hardcode some example files
+
+            const exampleFiles = getExampleFiles(i);
+
+            exampleFiles.forEach((file) => {
+              const fileType = fileUtils.getFileType(file.name);
+              if (fileType !== "unknown") {
+                portfolio[unitName].push({
+                  title: fileUtils.getFileTitle(file.name),
+                  type: fileType,
+                  path: unitPath + file.name,
+                  fullPath: file.path,
+                });
+              }
+            });
+          } catch (error) {
+            console.log(
+              `No files found in folder U${i} or error accessing it:`,
+              error
+            );
+          }
+        }
+
+        // Render all galleries after loading files
+        renderAllGalleries();
+      } catch (error) {
+        console.error("Error loading files:", error);
+      }
+    }
+
+    // Function to get example files (simulated)
+    function getExampleFiles(unitNumber) {
+      // This simulates the files that would be found in each directory
+      // Replace this with actual file system access in a real implementation
+      const exampleFiles = [
+        // Unit 1 examples
+        [
+          {
+            name: "Presentación Unidad 1.pdf",
+            path: "./trabajos/U1/UNIDAD 1 Desarrollo sustentable.pdf",
+          },
+          {
+            name: "Examen Diagnóstico.jpg",
+            path: "./trabajos/U1/t1.jpg",
+          },
+          {
+            name: "Competencia a desarrollar.jpeg",
+            path: "./trabajos/U1/t2.jpeg",
+          },
+          {
+            name: "Temario.pdf",
+            path: "./trabajos/U1/Temario.pdf",
+          },
+          {
+            name: "Sustentabilidad.jpeg",
+            path: "./trabajos/U1/t3.jpeg",
+          },
+          {
+            name: "Definición de Economía, Sociedad y Naturaleza.jpeg",
+            path: "./trabajos/U1/t4.jpeg",
+          },
+          {
+            name: "Resumen Geotormenta.pdf",
+            path: "./trabajos/U1/Resumen Geotormenta.pdf",
+          },
+          {
+            name: "Investigación de campo.pdf",
+            path: "///C:/Users/Elizabeth Morelos/Desarrollo Sustentable/trabajos/U1/Investigacióndecampo.pdf",
+          },
+          {
+            name: "Examen.jpeg",
+            path: "./trabajos/U1/t5.jpeg",
+          },
+        ],
+        // Unit 2 examples
+        [
+          {
+            name: "Presentación Unidad 2.pdf",
+            path: "./trabajos/U2/Unidad 2 Desarrollo Sustentable A.pdf",
+          },
+          {
+            name: "Investigación Campo.pdf",
+            path: "///C:/Users/Elizabeth Morelos/Desarrollo Sustentable/trabajos/U2/Campo.pdf",
+          },
+          {
+            name: "Video.mp4",
+            path: "./trabajos/U2/Video.mp4",
+          },
+        ],
+        // Unit 3 examples
+        [
+          {
+            name: "Presentación Unidad 3.pdf",
+            path: "./trabajos/U3/Unidad 3 Desarrollo Sustentable.pdf",
+          },
+          {
+            name: "Fin de la pobreza.pdf",
+            path: "./trabajos/U3/1.pdf",
+          },
+          {
+            name: "Hambre cero.pdf",
+            path: "./trabajos/U3/2.pdf",
+          },
+          {
+            name: "Salud y bienestar.pdf",
+            path: "./trabajos/U3/3.pdf",
+          },
+          {
+            name: "Educación de calidad.pdf",
+            path: "./trabajos/U3/4.pdf",
+          },
+          {
+            name: "Igualdad de genero.pdf",
+            path: "./trabajos/U3/5.pdf",
+          },
+          {
+            name: "Agua limpia y saneamiento.pdf",
+            path: "./trabajos/U3/6.pdf",
+          },
+          {
+            name: "Energía solar para comunidades rurales.pdf",
+            path: "./trabajos/U3/7.pdf",
+          },
+          {
+            name: "Trabajo decente y crecimiento económico.pdf",
+            path: "./trabajos/U3/8.pdf",
+          },
+          {
+            name: "Industria innovación e infraestructura.pdf",
+            path: "./trabajos/U3/9.pdf",
+          },
+          {
+            name: "Reducción de las desigualdades.pdf",
+            path: "./trabajos/U3/10.pdf",
+          },
+          {
+            name: "Ciudades y comunidades sostenibles.pdf",
+            path: "./trabajos/U3/11.pdf",
+          },
+          {
+            name: "Producción y consumo responsables.pdf",
+            path: "./trabajos/U3/12.pdf",
+          },
+          {
+            name: "Acción por el clima.pdf",
+            path: "./trabajos/U3/13.pdf",
+          },
+          {
+            name: "Vida submarina.pdf",
+            path: "./trabajos/U3/14.pdf",
+          },
+          {
+            name: "Vida de ecosistemas terrestres.pdf",
+            path: "./trabajos/U3/15.pdf",
+          },
+          {
+            name: "Paz, justicia e instituciones sólidas.pdf",
+            path: "./trabajos/U3/16.pdf",
+          },
+          {
+            name: "Agroecología digital: impulsando la agricultura sostenible.pdf",
+            path: "./trabajos/U3/17.pdf",
+          },
+          {
+            name: "Cuadro sinoptico leegepa.pdf",
+            path: "///C:/Users/Elizabeth Morelos/Desarrollo Sustentable/trabajos/U3/Cuadro sinóptico LEGEEPA.pdf",
+          },
+          {
+            name: "Proyecto ODS.pdf",
+            path: "./trabajos/U3/Proyecto ODS.pdf",
+          },
+        ],
+        // Unit 4 examples
+        [
+          {
+            name: "Presentación Unidad 4.pdf",
+            path: "./trabajos/U4/Unidad 4 Desarrollo Sustentable.pdf",
+          },
+          {
+            name: "La historia de las cosas.pdf",
+            path: "///C:/Users/Elizabeth Morelos/Desarrollo Sustentable/trabajos/U4/Lahistoriadelascosas.pdf",
+          },
+          {
+            name: "Produto interno bruto.jpeg",
+            path: "./trabajos/U4/Producto interno bruto.jpeg",
+          },
+          {
+            name: "Servicios ambientales.pdf",
+            path: "./trabajos/U4/Servicios ambientales.pdf",
+          },
+        ],
+        // Unit 5 examples
+        [
+          {
+            name: "Presentación Unidad 5.pdf",
+            path: "./trabajos/U5/UNIDAD 5 Desarrollo sustentable.pdf",
+          },
+          {
+            name: "Resumen huella ecologica.pdf",
+            path: "./trabajos/U5/Resumen huella ecologica.pdf",
+          },
+          {
+            name: "Situación de México.pdf",
+            path: "///C:/Users/Elizabeth Morelos/Desarrollo Sustentable/trabajos/U5/Situación de México.pdf",
+          },
+          {
+            name: "Contaminación Ambiental.pdf",
+            path: "./trabajos/U5/ContaminacionAmbiental.pdf",
+          },
+          {
+            name: "Reporte Siembra Final.pdf",
+            path: "./trabajos/U5/Reporte - Siembra Final.pdf",
+          },
+        ],
+      ];
+
+      return exampleFiles[unitNumber - 1] || [];
+    }
+
+    // Tab navigation
+    function changeUnit(unitId) {
+      // Hide all unit contents
+      const unitContents = document.querySelectorAll(".unit-content");
+      unitContents.forEach((unit) => {
+        unit.classList.remove("active");
+      });
+
+      // Deactivate all tabs
+      const tabs = document.querySelectorAll(".tab");
+      tabs.forEach((tab) => {
+        tab.classList.remove("active");
+      });
+
+      // Show selected unit content
+      document.getElementById(unitId).classList.add("active");
+
+      // Activate the clicked tab
+      event.target.classList.add("active");
+    }
+
+    // Modal functionality
+    const modal = document.getElementById("evidenceModal");
+    const modalContent = document.getElementById("modalContent");
+    const closeBtn = document.querySelector(".close");
+
+    // Close modal when clicking on close button
+    closeBtn.addEventListener("click", () => {
+      modal.classList.remove("show");
+      modalContent.innerHTML = "";
+    });
+
+    // Close modal when clicking outside the content
+    window.addEventListener("click", (event) => {
+      if (event.target === modal) {
+        modal.classList.remove("show");
+        modalContent.innerHTML = "";
+      }
+    });
+
+    // Function to open modal with appropriate content
+    function openModal(unit, index) {
+      const item = portfolio[unit][index];
+      modalContent.innerHTML = "";
+
+      if (item.type === "image") {
+        modalContent.innerHTML = `
+            <h3 style="color: var(--primary-color); margin-bottom: 15px; text-align: center;">${item.title}</h3>
+            <img src="${item.fullPath}" alt="${item.title}" class="modal-image">
+          `;
+      } else if (item.type === "pdf") {
+        modalContent.innerHTML = `
+            <h3 style="color: var(--primary-color); margin-bottom: 15px; text-align: center;">${item.title}</h3>
+            <embed src="${item.fullPath}" type="application/pdf" class="modal-pdf">
+          `;
+      } else if (item.type === "video") {
+        modalContent.innerHTML = `
+            <h3 style="color: var(--primary-color); margin-bottom: 15px; text-align: center;">${item.title}</h3>
+            <video src="${item.fullPath}" controls class="modal-video"></video>
+          `;
+      }
+
+      modal.classList.add("show");
+    }
+
+    // Render a specific gallery
+    function renderGallery(unit) {
+      const galleryEl = document.getElementById(`gallery-${unit}`);
+      const emptyEl = document.getElementById(`empty-${unit}`);
+
+      // Clear current gallery content, except for empty message
+      const items = galleryEl.querySelectorAll(".evidence-item");
+      items.forEach((item) => item.remove());
+
+      // Show or hide empty message
+      if (portfolio[unit].length === 0) {
+        emptyEl.style.display = "block";
+        return;
+      } else {
+        emptyEl.style.display = "none";
+      }
+
+      // Add each item to the gallery
+      portfolio[unit].forEach((item, index) => {
+        const newItem = document.createElement("div");
+        newItem.className = "evidence-item";
+
+        let itemContent = "";
+
+        // Create appropriate preview based on file type
+        if (item.type === "image") {
+          itemContent = `
+              <img src="${item.fullPath}" alt="${item.title}">
+              <div class="evidence-title">${item.title}</div>
+            `;
+        } else if (item.type === "pdf") {
+          itemContent = `
+              <div class="icon">📄</div>
+              <div class="evidence-title">${item.title}</div>
+            `;
+        } else if (item.type === "video") {
+          itemContent = `
+              <div class="icon">🎬</div>
+              <div class="evidence-title">${item.title}</div>
+            `;
+        }
+
+        newItem.innerHTML = itemContent;
+
+        // Add click event to open modal
+        newItem.addEventListener("click", function () {
+          openModal(unit, index);
+        });
+
+        galleryEl.appendChild(newItem);
+      });
+    }
+
+    // Render all galleries
+    function renderAllGalleries() {
+      renderGallery("unit1");
+      renderGallery("unit2");
+      renderGallery("unit3");
+      renderGallery("unit4");
+      renderGallery("unit5");
+    }
+
+    // Create decorative elements
+    function createLeaves() {
+      for (let i = 0; i < 10; i++) {
+        const leaf = document.createElement("div");
+        leaf.classList.add("leaf");
+        leaf.style.top = Math.random() * 100 + "%";
+        leaf.style.left = Math.random() * 100 + "%";
+        leaf.style.transform = `rotate(${Math.random() * 360}deg) scale(${0.5 + Math.random()
+          })`;
+        document.body.appendChild(leaf);
+      }
+    }
+
+    // Initialize the app
+    document.addEventListener("DOMContentLoaded", function () {
+      loadFilesFromDirectory();
+      createLeaves();
+    });
+  </script>
+</body>
+
+</html>
